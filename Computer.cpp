@@ -23,6 +23,7 @@ Computer::Computer()
     xRight = false;
     yUp = false;
     yDown = false;
+    shipInArea = false;
 
     GameStarted = false;
 }
@@ -69,90 +70,94 @@ bool Computer::setVertical()
 void Computer::setXY()
 {   
     if(shipInArea)
-    {
+    {   
+        cout << "in SHIPINAREA if" << endl;
         smartChoice();
     }
-    Xinput = getZeroNine();
-    Yinput = getZeroNine();
+    else
+    {
+
+        Xinput = getZeroNine();
+        Yinput = getZeroNine();    
+    }
+    
+    
 }
 
 
 void Computer::smartChoice()
-{
-    
-    int loopCount = 0;
+{   
+    static int loopCount = 1;
     int hitCount = 0;
-    if (!locatedHit)//if true we have not going in the right direction
+    int x, y;
+     Xinput = getXhitCoor();
+     Yinput = getYhitCoor();
+
+    enum xDir {RIGHT = 1, XNOCHANGE = 0, LEFT = -1};
+    enum yDir {DOWN = 1, YNOCHANGE = 0, UP = -1};
+    cout << "Loop count is " << loopCount << endl;
+    
+    if(!locatedHit)
     {   
-            if(loopCount == 1)
-            {
-                xRight = false;
-            }
-            else if(loopCount == 2)
-            {
-                xLeft = false;
-            }
-            else if(loopCount == 3)
-            {
-                yDown = false;
-            }
-            else if(loopCount == 4)
-            {
-                yUp = false;
-            }
-            
-        if(xRight && xLeft && yUp && yDown)
-        {
-            Xinput = XhitCoor++; //x goes right
-            Yinput = YhitCoor;
-            loopCount++;
-        }
-        else if(!xRight)
-        {
-            Xinput = XhitCoor--;// x goes left
-            Yinput = YhitCoor;
-
-            loopCount++;
-        }
-        else if(!xRight && !xLeft)
-        {
-            Xinput = XhitCoor;
-            Yinput = YhitCoor++; // y goes down
-            loopCount++;
-        }
-        else if(!xRight && !xLeft && !yDown)
-        {
-            Xinput = XhitCoor;
-            Yinput = YhitCoor--; // y goes up
-            loopCount++;
-
-        }
-    }
-
-    else if (locatedHit) //if true we are going in the right direction
-    {   
+        cout << "In if not located hit" << endl;
+        ++loopCount;
         if(loopCount == 1)
-        {
-            Xinput = XhitCoor++; //x goes right
-            Yinput = YhitCoor;
+        {   
+            cout << "In if loop is 1" << endl;
+            Xinput+=1;
+            Yinput = y;
+            
         }
         else if(loopCount == 2)
         {
-            Xinput = XhitCoor--; //x goes left
-            Yinput = YhitCoor;
+                        cout << "In if loop is 2" << endl;
+
+            Xinput-=1;
+            Yinput += 0;
         }
         else if(loopCount == 3)
-        {
-            Xinput = XhitCoor;// y goes up
-            Yinput = YhitCoor--;
+        {   
+                        cout << "In if loop is 3" << endl;
+
+            Xinput += 0;
+            Yinput+=1;
         }
         else if(loopCount == 4)
         {
-            Xinput = XhitCoor;
-            Yinput = YhitCoor++; // y goes down
-        }
-    } //end else if locatedHit
+                        cout << "In if loop is 4" << endl;
 
+            Xinput = 0;
+            Yinput-=1;
+        }
+        
+    }
+    else
+    {   
+        x = getXhitCoor();
+        y = getYhitCoor();
+        cout << "In the else of smart choice" << endl;
+        if(loopCount == 1) // then x goes right is good direction
+        {
+            Xinput = x+=1;
+            Yinput = y+=0;
+        }
+        else if(loopCount == 2)
+        {
+            Xinput = x-=1;
+            Yinput = y;
+        }
+        else if(loopCount == 3)
+        {
+            Yinput = y+=1;
+            Xinput = x;
+        }
+        else if(loopCount == 4)
+        {
+            Yinput= y-=1;
+            Xinput = x;
+        }
+    }
+    
 }//end function smartchoice
 
 
@@ -205,6 +210,16 @@ void Computer::setYhitCoor(int yCoor)
     YhitCoor = yCoor;
 }
 
+int Computer::getXhitCoor()
+{
+    return XhitCoor;
+}
+
+int Computer::getYhitCoor()
+{
+    return YhitCoor;
+}
+
 
 bool Computer::setLocatedHit(bool hit)
 {
@@ -217,13 +232,13 @@ bool Computer::setLocatedHit(bool hit)
 
 bool Computer::setShipInArea()
 {
-   
-    shipInArea = true;
+      shipInArea = true;
+    
 }
 
 
 bool Computer::getShipInArea()
-{
+{   
     return shipInArea;
 }
 
@@ -400,3 +415,10 @@ bool Computer::isWinner()
 }
 
 
+
+
+
+void Computer::FillASpot(int x, int y)
+{
+    Board.fillBoard(x, y, 'Z');
+}

@@ -24,6 +24,7 @@ class Computer : public Player
 
     //aggregate class instances
         GameBoard Board;
+        GameBoard MarkedBoard;
         Ship Ships[MAXNUMSHIPS]; //contains each ship
 
     //arrays to hold ship information
@@ -83,6 +84,8 @@ class Computer : public Player
             void setYup(bool);
             void setYdown(bool);
 
+
+        void FillASpot(int, int);
 };
 
 #endif 
