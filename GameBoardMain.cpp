@@ -84,7 +84,8 @@ int main()
                         //Comp.setXright(hit);
                         //Comp.setYdown(hit);
                         //Comp.setYup(hit);
-
+                
+                cout << "COMPUTER 2 BOARDS" << endl;
                 ptrComputer2->displayBoard();
 
                 

@@ -17,6 +17,7 @@ Computer::Computer()
         for (int col = 0; col < COLS; col++)
         {
             Board.fillBoard(col, row, ' ');
+            MarkedBoard.fillBoard(col, row, ' ');
         }
     }
     xLeft = false;
@@ -278,7 +279,7 @@ bool Computer::boardIsShipsHit(int xCoor, int yCoor)//redefined virtual and over
     {
         if(Ships[ship].isHit(xCoor, yCoor, GameStarted))
         {   
-            Board.fillBoard(xCoor, yCoor, 'H');
+            MarkedBoard.fillBoard(xCoor, yCoor, 'H');
             return true;
         }
     }
@@ -292,6 +293,7 @@ bool Computer::boardIsShipsHit(int xCoor, int yCoor)//redefined virtual and over
 void Computer::displayBoard()
 {
     Board.showBoard();
+    MarkedBoard.showBoard();
 }
 
 void Computer::setShips()
@@ -420,5 +422,6 @@ bool Computer::isWinner()
 
 void Computer::FillASpot(int x, int y)
 {
-    Board.fillBoard(x, y, 'Z');
+    Board.fillBoard(x, y, 'H');
+    MarkedBoard.fillBoard(x, y, 'X');
 }

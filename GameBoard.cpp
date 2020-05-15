@@ -17,12 +17,13 @@ void GameBoard::showBoard()
     {
         cout << setw(WIDTH) << headerArray[x]; //prints header numbers 0 - 9
     }
+    
     cout << endl << endl;
 
 //prints side numbers then game board
     for (int row = 0; row < ROWS; row++)
     {   
-        cout << setw(WIDTH) << sideArray[row];
+        cout << setw(WIDTH) << sideArray[row]; 
 
         for (int col = 0; col < COLS; col++)
         {
