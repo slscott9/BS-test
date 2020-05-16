@@ -106,7 +106,6 @@ int main()
 
                 cout << endl << endl;
 
-                Comp2.showShipCoor();
                 
                /* //displays coordinates set press enter to continue
                         DisplayUserPrompt();
