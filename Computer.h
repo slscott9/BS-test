@@ -18,6 +18,7 @@ class Computer : public Player
         int hitCount;
         int missCount;
         bool shipInArea;
+        bool isShipVertical;
 
     //variables to hold the original x and y hit
         int XhitCoor;
@@ -67,7 +68,13 @@ class Computer : public Player
             void setMissCount(int);
             int getMissCount();
 
-       
+            bool checkMarkedBoard(int , int);
+
+            void setShipVertical(bool);
+            bool getShipVertical();
+
+
+/*****************************************************************************/
 
      //redefined virtual functions
         void setXY();

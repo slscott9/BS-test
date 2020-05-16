@@ -38,6 +38,10 @@ bool GameBoard::isXYfilled(int x, int y)
     {
         return true;
     }
+    else
+    {
+        return false;
+    }
 }
 
 void GameBoard::fillBoard(int xCoor, int yCoor, char fillChar)

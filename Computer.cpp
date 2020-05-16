@@ -78,9 +78,14 @@ void Computer::setXY()
     }
     else
     {
-
         Xinput = getZeroNine();
-        Yinput = getZeroNine();    
+        Yinput = getZeroNine(); 
+        while(checkMarkedBoard(Xinput, Yinput))
+        {
+            Xinput = getZeroNine();
+            Yinput = getZeroNine();
+        }
+           
     }
 }
 
@@ -97,7 +102,7 @@ int Computer::getY()
 
 
 
-bool Computer::boardIsShipsHit(int xCoor, int yCoor, int numShipSetup)
+bool Computer::boardIsShipsHit(int xCoor, int yCoor, int numShipSetup) //used to set up ships
 {   
     for(int ship = 0; ship < numShipSetup; ship++)
     {
@@ -115,7 +120,6 @@ bool Computer::boardIsShipsHit(int xCoor, int yCoor)//redefined virtual and over
     {
         if(Ships[ship].isHit(xCoor, yCoor, GameStarted))
         {   
-    
             //MarkedBoard.fillBoard(xCoor, yCoor, 'H');
             return true;
         }
@@ -245,7 +249,7 @@ bool Computer::isWinner()
 
     }//end for loop
 }
-/*************************************************************************/
+/*************************************************************************/ //end virtual funcs
 
 
 void Computer::FillASpot(int x, int y, char shot)
@@ -280,50 +284,104 @@ void Computer::showShipCoor()
 
 void Computer::smartChoice()
 {   
+    //if in this function then a ship has been hit and shipinarea is true
+
     enum xDir {RIGHT = 1, XNOCHANGE = 0, LEFT = -1};
     enum yDir {DOWN = 1, YNOCHANGE = 0, UP = -1};
 
-    int x = getXhitCoor();
+    int x = getXhitCoor(); //getting the original hit cooordinates ever time
     int y = getYhitCoor();
 
-
-    if (getMissCount() == 0)
+    if (getMissCount() == 0) //x goes right
     {   
+        setShipVertical(false);
         cout << "in misscount = 0" << endl;
         Xinput = x+=1;
         Yinput = y;
-    }
-    else if(getMissCount() == 1)
-    {   
-                cout << "in misscount = 1" << endl;
+        
 
+    }
+    else if(getMissCount() == 1) //x goes left
+    {   
+        cout << "in misscount = 1" << endl;
+        setShipVertical(false);
         Xinput = x-=1;
         Yinput = y;
-    }
-    else if(getMissCount() == 2)
-    {   
-                cout << "in misscount = 2" << endl;
 
+        if(checkMarkedBoard(Xinput, Yinput) && !(getShipVertical()))
+        {
+            Xinput-=1;
+            Yinput = y;
+        }
+    }
+    else if(getMissCount() == 2) //y goes down
+    {   
+        cout << "in misscount = 2" << endl;
+        setShipVertical(true);
         Xinput = x;
         Yinput = y+=1;
-    }
-    else if(getMissCount() == 3)
-    {   
-        cout << "in misscount = 3" << endl; //going in this else because miss count is 
-                                //is zero at the start
 
+        if(checkMarkedBoard(Xinput, Yinput) && getShipVertical())
+        {
+            Xinput = x;
+            Yinput += 1;
+        }
+    }
+    else if(getMissCount() == 3) // y goes up
+    {   
+        cout << "in misscount = 3" << endl;
+        setShipVertical(true);
         Xinput = x;
         Yinput = y-=1;
+
+        if(checkMarkedBoard(Xinput, Yinput) && getShipVertical())
+        {
+            Xinput = x;
+            Yinput -=1;
+            
+        }
     }
-    else if (getMissCount() == 4)
-    {
+    else if (getMissCount() > 3) //everything reset
+    {   
+        
         shipInArea = false;
         setMissCount(0);
         setHitCount(0);
+        XhitCoor = 0;
+        YhitCoor = 0;
+    }
+}
+
+
+void Computer::setShipVertical(bool vertical)
+{
+    if(vertical)
+    {
+        isShipVertical = true;
+    }
+    else
+    {
+        isShipVertical = false;
     }
     
-    
+}
 
+bool Computer::getShipVertical()
+{
+    return isShipVertical;
+}
+//function checks for computer if his chosen shot is filled with a hit or miss
+bool Computer::checkMarkedBoard(int x, int y) //checks marked board for a shot or hit
+{
+    if(MarkedBoard.isXYfilled(x, y))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    
 }
 
 void Computer::setMissCount(int misses)
