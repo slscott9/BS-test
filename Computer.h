@@ -13,10 +13,11 @@ class Computer : public Player
         int Xinput;
         int Yinput;
         bool isVertical;
-        bool locatedHit;
+
+//smart shot variables
+        int hitCount;
+        int missCount;
         bool shipInArea;
-    //variables to tell if the direction we go in is not a hit
-        bool xLeft,xRight, yUp, yDown;
 
     //variables to hold the original x and y hit
         int XhitCoor;
@@ -26,6 +27,8 @@ class Computer : public Player
         GameBoard Board;
         GameBoard MarkedBoard;
         Ship Ships[MAXNUMSHIPS]; //contains each ship
+
+        Ship EnemyShips[MAXNUMSHIPS];
 
     //arrays to hold ship information
         char ShipAbrev[MAXNUMSHIPS] ={'P','S','D','B','C'};
@@ -47,26 +50,22 @@ class Computer : public Player
 
     //redefined virtual functions
         void setXY();
-
         void setShips();
-
         int getX();
-
         int getY();
-
         bool boardIsShipsHit(int, int, int); //redefined virtual function
         bool boardIsShipsHit(int, int); //virtual overloaded from player
-
-
         void displayBoard();
-
         bool isWinner();
     
     //smart functions to determine a shot area
-        bool setLocatedHit(bool);
         bool setShipInArea();
-        bool getLocatedHit();
         bool getShipInArea();
+
+        void setHitCount(int);
+        int getHitCount();
+        void setMissCount(int);
+        int getMissCount();
 
         void smartChoice();//smart function that tests each direction
 
@@ -78,14 +77,11 @@ class Computer : public Player
             int getXhitCoor();
             int getYhitCoor();
 
-        //function to set xLeft xRight yup, ydown
-            void setXleft(bool);
-            void setXright(bool);
-            void setYup(bool);
-            void setYdown(bool);
+        
 
+        void FillASpot(int, int, char);
 
-        void FillASpot(int, int);
+        void showShipCoor();
 };
 
 #endif 

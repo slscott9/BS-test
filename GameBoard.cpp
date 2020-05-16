@@ -17,8 +17,7 @@ void GameBoard::showBoard()
     {
         cout << setw(WIDTH) << headerArray[x]; //prints header numbers 0 - 9
     }
-    
-    cout << endl << endl;
+    cout << endl;
 
 //prints side numbers then game board
     for (int row = 0; row < ROWS; row++)
@@ -44,6 +43,7 @@ bool GameBoard::isXYfilled(int x, int y)
 void GameBoard::fillBoard(int xCoor, int yCoor, char fillChar)
 {
     Board[yCoor][xCoor] = fillChar;
+    
 }
 
 
