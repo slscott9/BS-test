@@ -88,27 +88,27 @@ void Computer::smartChoice()
     int x = getXhitCoor();
     int y = getYhitCoor();
 
-    if (getHitCount() == 1)
+    if (getMissCount() == 1)
     {   
         cout << "in misscount = 1" << endl;
         Xinput = x+=1;
         Yinput = y;
     }
-    else if(getHitCount() == 2)
+    else if(getMissCount() == 2)
     {   
                 cout << "in misscount = 2" << endl;
 
         Xinput = x-=1;
         Yinput = y;
     }
-    else if(getHitCount() == 3)
+    else if(getMissCount() == 3)
     {   
                 cout << "in misscount = 3" << endl;
 
         Xinput = x;
         Yinput = y+=1;
     }
-    else if(getHitCount() == 4)
+    else if(getMissCount() == 4)
     {   
                 cout << "in misscount = 4" << endl; //going in this else because miss count is 
                                 //is zero at the start
