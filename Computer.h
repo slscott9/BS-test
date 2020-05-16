@@ -40,15 +40,36 @@ class Computer : public Player
     //constructors
         Computer();
 
-    //Native functions for Computer class
+    //NATIVE functions for Computer class
+
         int getZeroNine();//generates random 0 - 9 for x and y coor
-
-
         bool setVertical();//generates 1 for vertical or 0 for hoizontal sets isVertical var
-
         bool getIsVertical();
 
-    //redefined virtual functions
+        void FillASpot(int, int, char); //if char is 'H' marked board filled with 'H'
+                                        //if char is 'O' marked board filled with 'O'
+
+   
+//smart functions NATIVE
+        void smartChoice();//smart function that tests each direction
+
+            void setXhitCoor(int); 
+            void setYhitCoor(int);
+            int getXhitCoor();
+            int getYhitCoor();
+
+            bool setShipInArea();//if ship is hit shipInArea is true
+            bool getShipInArea();
+
+            void setHitCount(int);
+            int getHitCount();
+
+            void setMissCount(int);
+            int getMissCount();
+
+       
+
+     //redefined virtual functions
         void setXY();
         void setShips();
         int getX();
@@ -57,29 +78,8 @@ class Computer : public Player
         bool boardIsShipsHit(int, int); //virtual overloaded from player
         void displayBoard();
         bool isWinner();
-    
-    //smart functions to determine a shot area
-        bool setShipInArea();
-        bool getShipInArea();
-
-        void setHitCount(int);
-        int getHitCount();
-        void setMissCount(int);
-        int getMissCount();
-
-        void smartChoice();//smart function that tests each direction
-
-
-        //functions to set x and y hit coordinates
-            void setXhitCoor(int);
-            void setYhitCoor(int);
-
-            int getXhitCoor();
-            int getYhitCoor();
 
         
-
-        void FillASpot(int, int, char);
 
         void showShipCoor();
 };

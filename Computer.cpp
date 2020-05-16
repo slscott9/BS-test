@@ -36,6 +36,7 @@ Computer::Computer()
 }
 
 //functions native to computer class
+/****************************************************/
 int Computer::getZeroNine()
 {   
     int randomNumber = (rand() % 10) + 0;
@@ -62,8 +63,12 @@ bool Computer::setVertical()
     }
     
 }
+/****************************************************/
+
+
 
 //redefined virtual functions from Player base class
+/***************************************************/
 void Computer::setXY()
 {   
     if(shipInArea)
@@ -78,105 +83,6 @@ void Computer::setXY()
         Yinput = getZeroNine();    
     }
 }
-
-
-void Computer::smartChoice()
-{   
-    enum xDir {RIGHT = 1, XNOCHANGE = 0, LEFT = -1};
-    enum yDir {DOWN = 1, YNOCHANGE = 0, UP = -1};
-
-    int x = getXhitCoor();
-    int y = getYhitCoor();
-
-    if (getMissCount() == 1)
-    {   
-        cout << "in misscount = 1" << endl;
-        Xinput = x+=1;
-        Yinput = y;
-    }
-    else if(getMissCount() == 2)
-    {   
-                cout << "in misscount = 2" << endl;
-
-        Xinput = x-=1;
-        Yinput = y;
-    }
-    else if(getMissCount() == 3)
-    {   
-                cout << "in misscount = 3" << endl;
-
-        Xinput = x;
-        Yinput = y+=1;
-    }
-    else if(getMissCount() == 4)
-    {   
-                cout << "in misscount = 4" << endl; //going in this else because miss count is 
-                                //is zero at the start
-
-        Xinput = x;
-        Yinput = y-=1;
-    }
-    
-    
-
-}
-
-void Computer::setMissCount(int misses)
-{
-    missCount = misses;
-}
-
-int Computer::getMissCount()
-{
-    return missCount;
-}
-
-
-void Computer::setXhitCoor(int xCoor)
-{
-    XhitCoor = xCoor;
-}
-
-void Computer::setYhitCoor(int yCoor)
-{
-    YhitCoor = yCoor;
-}
-
-int Computer::getXhitCoor()
-{
-    return XhitCoor;
-}
-
-int Computer::getYhitCoor()
-{
-    return YhitCoor;
-}
-
-void Computer::setHitCount(int tempHitCount)
-{
-   
-    hitCount+= tempHitCount;
-
-}
-
-int Computer::getHitCount()
-{
-    return hitCount;
-}
-
-
-bool Computer::setShipInArea()
-{
-      shipInArea = true;
-}
-
-
-bool Computer::getShipInArea()
-{   
-    return shipInArea;
-}
-
-
 
 
 int Computer::getX()
@@ -317,7 +223,6 @@ void Computer::setShips()
 }
 
 
-
 bool Computer::isWinner()
 {   
     cout << "Computer's hits " << endl;
@@ -340,6 +245,7 @@ bool Computer::isWinner()
 
     }//end for loop
 }
+/*************************************************************************/
 
 
 void Computer::FillASpot(int x, int y, char shot)
@@ -368,4 +274,109 @@ void Computer::showShipCoor()
         }
         cout << endl;
     }
+}
+
+/******************* SMART CHOICE FUNCTION NATIVE *******************/
+
+void Computer::smartChoice()
+{   
+    enum xDir {RIGHT = 1, XNOCHANGE = 0, LEFT = -1};
+    enum yDir {DOWN = 1, YNOCHANGE = 0, UP = -1};
+
+    int x = getXhitCoor();
+    int y = getYhitCoor();
+
+
+    if (getMissCount() == 0)
+    {   
+        cout << "in misscount = 0" << endl;
+        Xinput = x+=1;
+        Yinput = y;
+    }
+    else if(getMissCount() == 1)
+    {   
+                cout << "in misscount = 1" << endl;
+
+        Xinput = x-=1;
+        Yinput = y;
+    }
+    else if(getMissCount() == 2)
+    {   
+                cout << "in misscount = 2" << endl;
+
+        Xinput = x;
+        Yinput = y+=1;
+    }
+    else if(getMissCount() == 3)
+    {   
+        cout << "in misscount = 3" << endl; //going in this else because miss count is 
+                                //is zero at the start
+
+        Xinput = x;
+        Yinput = y-=1;
+    }
+    else if (getMissCount() == 4)
+    {
+        shipInArea = false;
+        setMissCount(0);
+        setHitCount(0);
+    }
+    
+    
+
+}
+
+void Computer::setMissCount(int misses)
+{
+    missCount = misses;
+}
+
+int Computer::getMissCount()
+{
+    return missCount;
+}
+
+
+void Computer::setXhitCoor(int xCoor)
+{
+    XhitCoor = xCoor;
+}
+
+void Computer::setYhitCoor(int yCoor)
+{
+    YhitCoor = yCoor;
+}
+
+int Computer::getXhitCoor()
+{
+    return XhitCoor;
+}
+
+int Computer::getYhitCoor()
+{
+    return YhitCoor;
+}
+
+void Computer::setHitCount(int tempHitCount)
+{
+   
+    hitCount+= tempHitCount;
+
+}
+
+int Computer::getHitCount()
+{
+    return hitCount;
+}
+
+
+bool Computer::setShipInArea()
+{
+      shipInArea = true;
+}
+
+
+bool Computer::getShipInArea()
+{   
+    return shipInArea;
 }

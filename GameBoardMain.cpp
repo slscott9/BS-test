@@ -35,7 +35,6 @@ int main()
         do
         {       bool hit = false;
                 int hitCount = 0;
-                int missCount = 0;
 
                 DisplayComputer(); //"computer is picking spots press enter to continue"
 
@@ -76,16 +75,17 @@ int main()
                         cout << "Computers shipInArea is " << Comp.getShipInArea() << endl << endl;
                         cout << "Computers hit count is " << hitCount << endl << endl;
                         cout << "Computers hit count is " << Comp.getHitCount() << endl;
-                        cout << "Computer mis count is " << Comp.getMissCount() << endl;
+                        cout << "Computer miss count is " << Comp.getMissCount() << endl;
 
                 }
                 else
                 {       
                         Comp2.FillASpot(ptrComputer->getX(),ptrComputer->getY(), 'O'); //fills comp2's board with computer's shots
 
-                        cout << endl << endl << "In else    COMPUTER SHOT MISSED" << endl << endl;
+                        cout << endl << endl << "In else  " << endl;
+                        cout << " COMPUTER SHOT MISSED" << endl << endl;
 
-                        cout << "Marked computers miss on computer 2's board. " << endl << endl;
+                        //cout << "Marked computers miss on computer 2's board. " << endl << endl;
                         cout << "Computer Xinput shot was " << ptrComputer->getX() << " Yinput shot was " << ptrComputer->getY() << endl << endl;
                         cout << "Computer's XhitCoor is " << Comp.getXhitCoor() << " YhitCoor is " << Comp.getYhitCoor() << endl;
                         //if else hit was false
@@ -93,10 +93,11 @@ int main()
                         cout << "Computer's hit count is " << Comp.getHitCount() << endl << endl;
                         if(Comp.getShipInArea())
                         {
-                                missCount++;
-                                Comp.setMissCount(missCount);
+                                misses++;
+                                Comp.setMissCount(misses);
                         }
-                        cout << "Computers miss count is " << Comp.getMissCount();
+                        cout << "ShipInArea is " << Comp.getShipInArea() << endl;
+                        cout << "Computers miss count is " << Comp.getMissCount() << endl ;
 
                 }
         /**************************************************************************************************************/
